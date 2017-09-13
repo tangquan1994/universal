@@ -8,14 +8,13 @@ struct serial
 	unsigned int data_bits;
 	unsigned int stop_bits;
 	unsigned int verify_bits;
-	struct queue qbuff;
-	int (*get_char)(unsigned char data);
-	int (*put_char)(unsigned char data);
-	int (*put_buff)(unsigned char buff[],unsigned int len);
+	struct queue *buff;
+	int (*read)(unsigned char *buff,unsigned int len);
+	int (*write)(unsigned char *buff,unsigned int len);
+	int (*ioctl)(void);
 };
 
-void serial_init(struct serial uart);
-void reg_serial_get_char(int (*get_char)(unsigned char data));
+void serial_init(struct serial *uart);
 
 
 #endif
